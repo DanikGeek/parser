@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+use LDAP\Result;
+
 $subject = file_get_contents('https://restoran.kz/restaurant');
 $pattern = '/<div class="mb-5">/u';
 $blocks = preg_split($pattern, $subject);
@@ -19,14 +22,22 @@ foreach ($blocks as $block) {
     $result = [];
     preg_match_all($pattern, $block, $result);
     
-    print_r($result);
-    $paraamMap = [
-        '#icon-plate => cuisine',
-        '#icon-kz-tenge-in-circle => cuisine',
-        '#icon-lightning-in-circle   => cuisine',
-
+    //print_r($result);
+    $paramsMap = [
+        '#icon-plate' => 'cuisine',
+        '#icon-kz-tenge-in-circle' => 'price',
+        '#icon-lightning-in-circle'   => 'option',
     ];
+
+    foreach ($paramsMap as $k => $v) {  
+       $index = array_search($k, $result[1]);
+        if ($index !== false) {
+            $rest[$v] = $result[2][$index];
+        }
+    }
+
     print_r($rest);
+
 }
 die();   
 
