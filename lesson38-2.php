@@ -35,10 +35,11 @@ foreach ($blocks as $block) {
             $rest[$v] = $result[2][$index];
         }
     }
-
-    print_r($rest);
+    $rests [] = $rest;
+   
 
 }
+print_r($rests);
 die();   
 
 
