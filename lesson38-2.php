@@ -46,11 +46,17 @@ function getMaxPage ($page)
     $pattern = '/<a.+?href="\/restaurant\?page=([0-9]+)">[0-9]+<\/a>/u';
     $result = [];
     preg_match_all($pattern, $subject, $result);
-    //print_r($result);
-    return max($result[1]);
+    $max = max($result[1]);
+    if ($max <= $page) {
+        return $page;      
+    }
+    else {
+        return getMaxPage($max);
+    }
+    return;
 }
-echo getMaxPage(7);
+echo getMaxPage(1);
 // print_r(getRestFromPage(15));
 //Урок 34. Базы данных.
-//Часть 1. Добиваем парсинг ресторанов. 47min
+//Часть 1. Добиваем парсинг ресторанов. Урок пройден
 
