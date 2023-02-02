@@ -40,7 +40,17 @@ function getRestFromPage($page)
    return $rests;
     
 }
-print_r(getRestFromPage(15));
-
-  
+function getMaxPage ($page)
+{
+    $subject = file_get_contents('https://restoran.kz/restaurant?page=' . $page);
+    $pattern = '/<a.+?href="\/restaurant\?page=([0-9]+)">[0-9]+<\/a>/u';
+    $result = [];
+    preg_match_all($pattern, $subject, $result);
+    //print_r($result);
+    return max($result[1]);
+}
+echo getMaxPage(7);
+// print_r(getRestFromPage(15));
+//Урок 34. Базы данных.
+//Часть 1. Добиваем парсинг ресторанов. 47min
 
