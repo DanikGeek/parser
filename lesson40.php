@@ -1,4 +1,4 @@
-    <?php
+        <?php
   function getRestFromPage($page)
   {
               $subject = file_get_contents('https://restoran.kz/restaurant?page=' . $page);
@@ -79,17 +79,41 @@
       PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
       PDO::ATTR_EMULATE_PREPARES   => false,
   ];
+  #Подключение к БД
   $pdo = new PDO($dsn, $user, $pass, $opt);
+  # Подготовка запроса
   $stmt = $pdo->prepare("
-    INSERT INTRO
+    INSERT INTO
         `rests` (
             `name`,
             `link`,
             `cuisine`,
             `price`,
             `options`
+        ) VALUES (
+            :name,
+            :link,
+            :cuisine,       
+            :price,
+            :options
         )
 
   ");
+  #Выплнение запроса    
+  $stmt->execute([
+    ':name' => 'CodeGuru.be',
+    ':link' => 'https://CodeGuru.be',
+    ':cuisine' => 'PHP MySql',
+    ':price' => '2000',
+    ':options' => 'WiFi, coffee',
+
+  ]);
+/*foreach ($rests as $rest) {
+    # code...
+}
+*/
+  //print_r($rests);
+  //insert select update delete
+
 //Урок 34. Базы данных.
 //Часть 5. Программируем добавление в базу данных.
