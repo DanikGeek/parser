@@ -1,4 +1,4 @@
-        <?php
+    <?php
   function getRestFromPage($page)
   {
               $subject = file_get_contents('https://restoran.kz/restaurant?page=' . $page);
@@ -100,20 +100,17 @@
 
   ");
   #Выплнение запроса    
-  $stmt->execute([
-    ':name' => 'CodeGuru.be',
-    ':link' => 'https://CodeGuru.be',
-    ':cuisine' => 'PHP MySql',
-    ':price' => '2000',
-    ':options' => 'WiFi, coffee',
 
-  ]);
-/*foreach ($rests as $rest) {
-    # code...
+foreach ($rests as $rest) {
+    $stmt->execute([
+        ':name' => $rest['name'],
+        ':link' => $rest['link'],
+        ':cuisine' => isset($rest['cuisine']) ? $rest['cuisine'] : '',
+        ':price' => isset($rest['price']) ? $rest['price'] : '' ,
+        ':options' => isset($rest['options']) ? $rest['options'] : '', 
+    
+      ]);
 }
-*/
+
   //print_r($rests);
   //insert select update delete
-
-//Урок 34. Базы данных.
-//Часть 5. Программируем добавление в базу данных.
