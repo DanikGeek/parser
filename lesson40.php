@@ -114,3 +114,4 @@ foreach ($rests as $rest) {
 
   //print_r($rests);
   //insert select update delete
+// пароль от PHPMyAdmin root Atbasar123 - на OpenServer
