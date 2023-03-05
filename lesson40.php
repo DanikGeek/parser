@@ -1,4 +1,4 @@
-    <?php
+<?php
   function getRestFromPage($page)
   {
               $subject = file_get_contents('https://restoran.kz/restaurant?page=' . $page);
@@ -81,6 +81,14 @@
   ];
   #Подключение к БД
   $pdo = new PDO($dsn, $user, $pass, $opt);
+
+  $rests = [];
+  for ($i=1; $i <= $max; $i++) { 
+  $rests = array_merge($rests, getRestFromPage($i));
+  }
+$stmt = $pdo->prepare("TRUNCATE TABLE `cg_rests`.`rests`"); 
+$stmt->execute();
+
   # Подготовка запроса
   $stmt = $pdo->prepare("
     INSERT INTO
@@ -105,7 +113,7 @@ foreach ($rests as $rest) {
     $stmt->execute([
         ':name' => $rest['name'],
         ':link' => $rest['link'],
-        ':cuisine' => isset($rest['cuisine']) ? $rest['cuisine'] : '',
+        ':cuisine' => isset($rest['cuisine']) ?? '', //Сокращение тернарного оператора
         ':price' => isset($rest['price']) ? $rest['price'] : '' ,
         ':options' => isset($rest['options']) ? $rest['options'] : '', 
     
