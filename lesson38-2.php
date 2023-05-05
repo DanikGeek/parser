@@ -1,4 +1,4 @@
-<?php
+<?php 1
 
 function getRestFromPage($page)
 {
